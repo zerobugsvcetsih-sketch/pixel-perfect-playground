@@ -301,3 +301,47 @@ export const LEVEL_META: Record<
     note: "Validated multi-parameter event condition triggers the local emergency alert.",
   },
 };
+
+export interface CalibrationFit {
+  offsetHpa: number;
+  gain: number;
+  tempCoefHpaPerC: number;
+  points: number;
+}
+
+/**
+ * Least-squares fit of ref = gain*raw + offset + tempCoef*(temp-25)
+ * from the live simulated sample stream. Raw is centred for numerical stability.
+ */
+export function fitCalibration(samples: Sample[]): CalibrationFit | null {
+  const n = samples.length;
+  if (n < 10) return null;
+  const rm = samples.reduce((a, s) => a + s.raw, 0) / n;
+  let sxx = 0, sxt = 0, stt = 0, sx = 0, st = 0, sy = 0, sxy = 0, sty = 0;
+  for (const s of samples) {
+    const x = s.raw - rm, tt = s.temp - 25, y = s.ref;
+    sxx += x * x; sxt += x * tt; stt += tt * tt; sx += x; st += tt; sy += y; sxy += x * y; sty += tt * y;
+  }
+  // Normal equations for [gain, tempCoef, b] with y = gain*x + tempCoef*t + b
+  const A = [
+    [sxx, sxt, sx],
+    [sxt, stt, st],
+    [sx, st, n],
+  ];
+  const B = [sxy, sty, sy];
+  const det = (m: number[][]) =>
+    m[0]![0]! * (m[1]![1]! * m[2]![2]! - m[1]![2]! * m[2]![1]!) -
+    m[0]![1]! * (m[1]![0]! * m[2]![2]! - m[1]![2]! * m[2]![0]!) +
+    m[0]![2]! * (m[1]![0]! * m[2]![1]! - m[1]![1]! * m[2]![0]!);
+  const D = det(A);
+  if (!isFinite(D) || Math.abs(D) < 1e-12) return null;
+  const solve = (col: number) => det(A.map((r, i) => r.map((v, j) => (j === col ? B[i]! : v))));
+  const gain = solve(0) / D;
+  const tempCoef = solve(1) / D;
+  const b = solve(2) / D;
+  return { gain, tempCoefHpaPerC: tempCoef, offsetHpa: b - gain * rm, points: n };
+}
+
+export function applyFit(fit: CalibrationFit, raw: number, temp: number) {
+  return raw * fit.gain + fit.offsetHpa + fit.tempCoefHpaPerC * (temp - 25);
+}
