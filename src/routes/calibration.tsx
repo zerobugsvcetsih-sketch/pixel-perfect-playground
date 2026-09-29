@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { DemoTag, Disclaimer, Field, PageHeader, Panel, PanelHead, fmt } from "@/components/kit";
 import { XYScatter } from "@/components/charts";
-import { CALIBRATION, stats } from "@/lib/sim/engine";
+import { CALIBRATION, applyFit, fitCalibration, stats } from "@/lib/sim/engine";
 import { useSystem } from "@/lib/sim/store";
 import { pageMeta } from "@/lib/meta";
 import { BadgeCheck } from "lucide-react";
@@ -18,11 +18,14 @@ export const Route = createFileRoute("/calibration")({
 
 function Calibration() {
   const { fine } = useSystem();
+  const fit = useMemo(() => fitCalibration(fine), [fine]);
+  const calOf = (s: (typeof fine)[number]) => (fit ? applyFit(fit, s.raw, s.temp) : s.cal);
   const pts = useMemo(
-    () => fine.filter((_, i) => i % 20 === 0).map((s) => ({ ref: s.ref, cal: s.cal, raw: s.raw })),
-    [fine],
+    () => fine.filter((_, i) => i % 20 === 0).map((s) => ({ ref: s.ref, cal: calOf(s), raw: s.raw })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fine, fit],
   );
-  const resid = stats(fine.slice(-300).map((s) => (s.cal - s.ref) * 100));
+  const resid = stats(fine.slice(-300).map((s) => (calOf(s) - s.ref) * 100));
   return (
     <div className="space-y-6">
       <PageHeader
@@ -34,12 +37,12 @@ function Calibration() {
         <Panel>
           <PanelHead icon={<BadgeCheck className="size-4" />} title="Current coefficients" right={<DemoTag />} />
           <div className="px-5 py-3">
-            <Field label="Offset" value={`${CALIBRATION.offsetHpa} hPa`} />
-            <Field label="Gain" value={CALIBRATION.gain} />
-            <Field label="Temp. coefficient" value={`${CALIBRATION.tempCoefHpaPerC} hPa/°C`} />
+            <Field label="Offset" value={fit ? `${fmt(fit.offsetHpa, 3)} hPa` : "—"} />
+            <Field label="Gain" value={fit ? fmt(fit.gain, 5) : "—"} />
+            <Field label="Temp. coefficient" value={fit ? `${fmt(fit.tempCoefHpaPerC, 4)} hPa/°C` : "—"} />
             <Field label="Calibration date" value={CALIBRATION.date} />
             <Field label="Reference" value={CALIBRATION.referenceInstrument} />
-            <Field label="Calibration points" value={CALIBRATION.points} />
+            <Field label="Calibration points" value={fit ? fit.points : 0} />
           </div>
         </Panel>
         <Panel className="lg:col-span-2">
