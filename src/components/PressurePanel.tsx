@@ -31,7 +31,7 @@ export function PressurePanel({ height = 320 }: { height?: number }) {
   }, [fine, coarse, cfg.ms]);
 
   const s = stats(data.map((d) => d.cal));
-  const current = data.length ? data[data.length - 1].cal : 0;
+  const current = data[data.length - 1]?.cal ?? 0;
 
   return (
     <Panel>
