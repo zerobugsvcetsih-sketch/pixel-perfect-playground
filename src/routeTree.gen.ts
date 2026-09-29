@@ -10,33 +10,206 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AlertsRouteImport } from './routes/alerts'
+import { Route as ArchitectureRouteImport } from './routes/architecture'
+import { Route as CalibrationRouteImport } from './routes/calibration'
+import { Route as DangerRouteImport } from './routes/danger'
+import { Route as HealthRouteImport } from './routes/health'
+import { Route as HistoryRouteImport } from './routes/history'
+import { Route as LiveSensorsRouteImport } from './routes/live-sensors'
+import { Route as LoraRouteImport } from './routes/lora'
+import { Route as NodesRouteImport } from './routes/nodes'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SignalAnalysisRouteImport } from './routes/signal-analysis'
+import { Route as ValidationRouteImport } from './routes/validation'
+import { Route as VoiceRouteImport } from './routes/voice'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchitectureRoute = ArchitectureRouteImport.update({
+  id: '/architecture',
+  path: '/architecture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalibrationRoute = CalibrationRouteImport.update({
+  id: '/calibration',
+  path: '/calibration',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DangerRoute = DangerRouteImport.update({
+  id: '/danger',
+  path: '/danger',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiveSensorsRoute = LiveSensorsRouteImport.update({
+  id: '/live-sensors',
+  path: '/live-sensors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoraRoute = LoraRouteImport.update({
+  id: '/lora',
+  path: '/lora',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NodesRoute = NodesRouteImport.update({
+  id: '/nodes',
+  path: '/nodes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignalAnalysisRoute = SignalAnalysisRouteImport.update({
+  id: '/signal-analysis',
+  path: '/signal-analysis',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ValidationRoute = ValidationRouteImport.update({
+  id: '/validation',
+  path: '/validation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceRoute = VoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/architecture': typeof ArchitectureRoute
+  '/calibration': typeof CalibrationRoute
+  '/danger': typeof DangerRoute
+  '/health': typeof HealthRoute
+  '/history': typeof HistoryRoute
+  '/live-sensors': typeof LiveSensorsRoute
+  '/lora': typeof LoraRoute
+  '/nodes': typeof NodesRoute
+  '/settings': typeof SettingsRoute
+  '/signal-analysis': typeof SignalAnalysisRoute
+  '/validation': typeof ValidationRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/architecture': typeof ArchitectureRoute
+  '/calibration': typeof CalibrationRoute
+  '/danger': typeof DangerRoute
+  '/health': typeof HealthRoute
+  '/history': typeof HistoryRoute
+  '/live-sensors': typeof LiveSensorsRoute
+  '/lora': typeof LoraRoute
+  '/nodes': typeof NodesRoute
+  '/settings': typeof SettingsRoute
+  '/signal-analysis': typeof SignalAnalysisRoute
+  '/validation': typeof ValidationRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/architecture': typeof ArchitectureRoute
+  '/calibration': typeof CalibrationRoute
+  '/danger': typeof DangerRoute
+  '/health': typeof HealthRoute
+  '/history': typeof HistoryRoute
+  '/live-sensors': typeof LiveSensorsRoute
+  '/lora': typeof LoraRoute
+  '/nodes': typeof NodesRoute
+  '/settings': typeof SettingsRoute
+  '/signal-analysis': typeof SignalAnalysisRoute
+  '/validation': typeof ValidationRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/alerts'
+    | '/architecture'
+    | '/calibration'
+    | '/danger'
+    | '/health'
+    | '/history'
+    | '/live-sensors'
+    | '/lora'
+    | '/nodes'
+    | '/settings'
+    | '/signal-analysis'
+    | '/validation'
+    | '/voice'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/alerts'
+    | '/architecture'
+    | '/calibration'
+    | '/danger'
+    | '/health'
+    | '/history'
+    | '/live-sensors'
+    | '/lora'
+    | '/nodes'
+    | '/settings'
+    | '/signal-analysis'
+    | '/validation'
+    | '/voice'
+  id:
+    | '__root__'
+    | '/'
+    | '/alerts'
+    | '/architecture'
+    | '/calibration'
+    | '/danger'
+    | '/health'
+    | '/history'
+    | '/live-sensors'
+    | '/lora'
+    | '/nodes'
+    | '/settings'
+    | '/signal-analysis'
+    | '/validation'
+    | '/voice'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  ArchitectureRoute: typeof ArchitectureRoute
+  CalibrationRoute: typeof CalibrationRoute
+  DangerRoute: typeof DangerRoute
+  HealthRoute: typeof HealthRoute
+  HistoryRoute: typeof HistoryRoute
+  LiveSensorsRoute: typeof LiveSensorsRoute
+  LoraRoute: typeof LoraRoute
+  NodesRoute: typeof NodesRoute
+  SettingsRoute: typeof SettingsRoute
+  SignalAnalysisRoute: typeof SignalAnalysisRoute
+  ValidationRoute: typeof ValidationRoute
+  VoiceRoute: typeof VoiceRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +221,115 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/architecture': {
+      id: '/architecture'
+      path: '/architecture'
+      fullPath: '/architecture'
+      preLoaderRoute: typeof ArchitectureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calibration': {
+      id: '/calibration'
+      path: '/calibration'
+      fullPath: '/calibration'
+      preLoaderRoute: typeof CalibrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/danger': {
+      id: '/danger'
+      path: '/danger'
+      fullPath: '/danger'
+      preLoaderRoute: typeof DangerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live-sensors': {
+      id: '/live-sensors'
+      path: '/live-sensors'
+      fullPath: '/live-sensors'
+      preLoaderRoute: typeof LiveSensorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lora': {
+      id: '/lora'
+      path: '/lora'
+      fullPath: '/lora'
+      preLoaderRoute: typeof LoraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nodes': {
+      id: '/nodes'
+      path: '/nodes'
+      fullPath: '/nodes'
+      preLoaderRoute: typeof NodesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signal-analysis': {
+      id: '/signal-analysis'
+      path: '/signal-analysis'
+      fullPath: '/signal-analysis'
+      preLoaderRoute: typeof SignalAnalysisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/validation': {
+      id: '/validation'
+      path: '/validation'
+      fullPath: '/validation'
+      preLoaderRoute: typeof ValidationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice': {
+      id: '/voice'
+      path: '/voice'
+      fullPath: '/voice'
+      preLoaderRoute: typeof VoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  ArchitectureRoute: ArchitectureRoute,
+  CalibrationRoute: CalibrationRoute,
+  DangerRoute: DangerRoute,
+  HealthRoute: HealthRoute,
+  HistoryRoute: HistoryRoute,
+  LiveSensorsRoute: LiveSensorsRoute,
+  LoraRoute: LoraRoute,
+  NodesRoute: NodesRoute,
+  SettingsRoute: SettingsRoute,
+  SignalAnalysisRoute: SignalAnalysisRoute,
+  ValidationRoute: ValidationRoute,
+  VoiceRoute: VoiceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
