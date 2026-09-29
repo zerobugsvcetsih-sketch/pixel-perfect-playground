@@ -21,7 +21,7 @@ function Calibration() {
   const fit = useMemo(() => fitCalibration(fine), [fine]);
   const calOf = (s: (typeof fine)[number]) => (fit ? applyFit(fit, s.raw, s.temp) : s.cal);
   const pts = useMemo(
-    () => fine.filter((_, i) => i % 20 === 0).map((s) => ({ ref: s.ref, cal: calOf(s), raw: s.raw })),
+    () => fine.filter((_, i) => i % 20 === 0).map((s) => ({ reference: s.ref, cal: calOf(s), raw: s.raw })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [fine, fit],
   );
@@ -48,7 +48,7 @@ function Calibration() {
         <Panel className="lg:col-span-2">
           <PanelHead title="Sensor vs reference" sub="Calibrated reading against reference, 1:1 line" />
           <div className="p-4">
-            <XYScatter data={pts} xKey="ref" yKey="cal" xLabel="Reference hPa" yLabel="Sensor hPa" height={260} />
+            <XYScatter data={pts} xKey="reference" yKey="cal" xLabel="Reference hPa" yLabel="Sensor hPa" height={260} />
           </div>
         </Panel>
       </div>
